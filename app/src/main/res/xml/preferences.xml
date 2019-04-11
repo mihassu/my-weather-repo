@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="14"
+        android:dialogTitle="@string/select_font"
+        android:key="@string/pref_size"
+        android:summary="@string/set_new_fontsize"
+        android:title="@string/font_size"
+
+        >
+
+    </EditTextPreference>
+
+    <CheckBoxPreference>
+
+    </CheckBoxPreference>
+
+</PreferenceScreen>

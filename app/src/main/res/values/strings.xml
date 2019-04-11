@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Приложение "Погода"</string>
+    <string name="nav_header_subtitle">Показывает погоду в городах</string>
+    <string name="nav_header_desc">Мое первое приложение</string>
+
+    <string name="empty">Пусто</string>
+
+    <string-array name="Cities">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
+        <item>Самара</item>
+        <!--<item>Екатеринбург</item>-->
+    </string-array>
+
+    <string name="temperatureStr">Температура</string>
+    <string name="no_data">Нет данных</string>
+    <string name="windStr">Ветер</string>
+    <string name="showWindStr">Будет показан ветер</string>
+    <string name="pressureStr">Давление</string>
+    <string name="showPressureStr">Будет показано давление</string>
+    <string name="showWeather">Показать</string>
+    <string name="to_back">Назад</string>
+    <string name="selectcity">Выбрать</string>
+    <string name="selectcityStr">Выберите город</string>
+
+    <string name="settings">Настройки</string>
+    <string name="select_font">Выберить размер шрифта</string>
+    <string name="pref_size">Размер</string>
+    <string name="set_new_fontsize">Устанавливает новый размер шрифта</string>
+    <string name="font_size">Размер шрифта</string>
+
+    <string name="action_options">Опции</string>
+    <string name="action_search">Поиск</string>
+
+    <string name="info">Информация</string>
+    <string name="about_creator">О разработчике</string>
+    <string name="feedback">Обратная связь</string>
+
+</resources>

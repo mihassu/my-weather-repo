@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!--<item android:id="@+id/action_test1"-->
+        <!--android:title="Тест1"-->
+        <!--app:showAsAction="always|withText"-->
+        <!--android:orderInCategory="20"-->
+        <!--&gt;</item>-->
+
+    <!--<item android:id="@+id/action_test2"-->
+        <!--android:title="Тест2"-->
+        <!--app:showAsAction="always|withText"-->
+        <!--android:orderInCategory="10"-->
+        <!--&gt;</item>-->
+
+    <item android:id="@+id/action_settings"
+        android:orderInCategory="80"
+        app:showAsAction="never"
+        android:title="@string/settings"
+        ></item>
+
+    <item android:id="@+id/action_options"
+        android:orderInCategory="90"
+        android:title="@string/action_options"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_search"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView"
+        android:title="@string/action_search">
+
+    </item>
+
+
+</menu>

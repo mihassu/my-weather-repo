@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="coat_of_arms_imgs">
+        <item>@drawable/msc</item>
+        <item>@drawable/spb</item>
+        <item>@drawable/nvsb</item>
+        <item>@drawable/sam</item>
+        <!--<item>@drawable/ekat</item>-->
+
+    </integer-array>
+
+</resources>
