@@ -18,11 +18,18 @@
         <!--android:orderInCategory="10"-->
         <!--&gt;</item>-->
 
+    <item android:id="@+id/action_add_to_db"
+        android:orderInCategory="70"
+        app:showAsAction="always"
+        android:title="@string/add_city"
+        android:icon="@drawable/ic_add_circle_outline_black_24dp"
+        />
+
     <item android:id="@+id/action_settings"
         android:orderInCategory="80"
         app:showAsAction="never"
         android:title="@string/settings"
-        ></item>
+        />
 
     <item android:id="@+id/action_options"
         android:orderInCategory="90"

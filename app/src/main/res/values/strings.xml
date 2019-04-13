@@ -26,6 +26,9 @@
     <string name="to_back">Назад</string>
     <string name="selectcity">Выбрать</string>
     <string name="selectcityStr">Выберите город</string>
+    <string name="add_city">Добавить город</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">OK</string>
 
     <string name="settings">Настройки</string>
     <string name="select_font">Выберить размер шрифта</string>

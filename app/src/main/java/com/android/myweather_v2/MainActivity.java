@@ -1,8 +1,10 @@
 package com.android.myweather_v2;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -13,11 +15,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,13 +34,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.myweather_v2.database.NoteDataReader;
+import com.android.myweather_v2.database.NoteDataSourse;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import static com.android.myweather_v2.OptionsActivity.OPTIONS_CONDITIONS;
@@ -71,6 +78,9 @@ public class MainActivity extends AppCompatActivity
     private Sensor sensorLight;
     private List<Sensor> sensors;
 
+    private NoteDataSourse noteDataSourse;
+    private NoteDataReader noteDataReader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +88,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         initGui();
+        initDataBase();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -293,6 +304,11 @@ public class MainActivity extends AppCompatActivity
                 startActivityUsual(this, OptionsActivity.class);
                 return true;
 
+            case R.id.action_add_to_db:
+                addElementToDB();
+                return true;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -364,8 +380,6 @@ public class MainActivity extends AppCompatActivity
             editor.putString(CURRENT_CITY, tViewSelectedCity.getText().toString());
             editor.apply();
         }
-
-
     }
 
 
@@ -431,5 +445,45 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
+
+    //База данных
+    private void initDataBase() {
+        noteDataSourse = new NoteDataSourse(getApplicationContext());
+        noteDataSourse.open();
+        noteDataReader = noteDataSourse.getNoteDataReader();
+    }
+
+    //Добавить город в базу
+    public void addElementToDB() {
+
+        // Выведем диалоговое окно для ввода новой записи
+        LayoutInflater factory = LayoutInflater.from(this);
+
+        final View alertView = factory.inflate(R.layout.data_base_activity, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(alertView);
+        builder.setTitle(R.string.add_city);
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                EditText newCity = alertView.findViewById(R.id.city_name_to_db);
+                EditText newTemp = alertView.findViewById(R.id.temperature_to_db);
+                // если использовать findViewById без alertView, то всегда будем получать
+                // editText = null
+
+                noteDataSourse.addNote(newCity.getText().toString(), newTemp.getText().toString());
+            }
+        });
+
+        builder.show();
+    }
+
+//    private void dataUpdated() {
+//        noteDataReader.refresh();
+//        adapter.notifyDataSetChanged();
+//    }
 }
 
