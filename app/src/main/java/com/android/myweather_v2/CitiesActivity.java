@@ -20,6 +20,7 @@ import static com.android.myweather_v2.MainActivity.CURRENT_CITY_POS;
 public class CitiesActivity extends AppCompatActivity {
 
     private List<CityItem> cities = new ArrayList<>();
+    public static CitiesAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class CitiesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         //Установить адаптер
-        CitiesAdapter adapter = new CitiesAdapter(cities);
+        adapter = new CitiesAdapter(cities);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new CitiesAdapter.OnItemClickListener() {
@@ -68,14 +69,22 @@ public class CitiesActivity extends AppCompatActivity {
     //Создать список объектов Город
     public void setInitialData() {
 
-        String[] citiesArray = getResources().getStringArray(R.array.Cities);
-        TypedArray coatOfarms = getResources().obtainTypedArray(R.array.coat_of_arms_imgs);
+//        String[] citiesArray = getResources().getStringArray(R.array.Cities);
+//        TypedArray coatOfarms = getResources().obtainTypedArray(R.array.coat_of_arms_imgs);
+//
+//        for (int i = 0; i < citiesArray.length; i++) {
+//            cities.add(new CityItem(citiesArray[i],
+//                    coatOfarms.getResourceId(i, -1)));
+//
+//        }
 
-        for (int i = 0; i < citiesArray.length; i++) {
-            cities.add(new CityItem(citiesArray[i],
-                    coatOfarms.getResourceId(i, -1)));
+        //Из БД
+        String[] cities = getIntent().getExtras().getStringArray(MainActivity.ALL_CITIES);
+        for (int i = 0; i < cities.length; i++) {
+            this.cities.add(new CityItem(cities[i]));
 
         }
+
     }
 
 

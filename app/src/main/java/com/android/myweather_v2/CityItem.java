@@ -5,9 +5,13 @@ public class CityItem {
     private String cityName;
     private int coatOfArms;
 
-    public CityItem(String cityName, int coatOfArms) {
+//    public CityItem(String cityName, int coatOfArms) {
+//        this.cityName = cityName;
+//        this.coatOfArms = coatOfArms;
+//    }
+
+    public CityItem(String cityName) {
         this.cityName = cityName;
-        this.coatOfArms = coatOfArms;
     }
 
 

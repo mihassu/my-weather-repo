@@ -72,6 +72,8 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
         Intent intentForService = new Intent(getActivity(), WeatherInfoService.class);
         intentForService.putExtra(CITY_NAME, getCityName());
         intentForService.putExtra(CONDITIONS, getConditions());
+        intentForService.putExtra(CURRENT_CITY_POS, getIndex());
+
         getActivity().startService(intentForService);
 
         //Создаем BroadcastReceiver для получения данных от Сервиса

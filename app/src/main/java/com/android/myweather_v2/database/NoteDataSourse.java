@@ -44,6 +44,11 @@ public class NoteDataSourse implements Closeable {
         return newNote;
     }
 
+    // Очистить таблицу
+    public void deleteAll() {
+        database.delete(DataBaseHelper.TABLE_WEATHER, null, null);
+    }
+
     public NoteDataReader getNoteDataReader() {
         return noteDataReader;
     }

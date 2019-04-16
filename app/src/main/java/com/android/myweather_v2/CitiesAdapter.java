@@ -69,7 +69,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CityItem city = cities.get(position);
         holder.cityNameTextView.setText(city.getCityName());
-        holder.coatOfArmsImageView.setImageResource(city.getCoatOfArms());
+//        holder.coatOfArmsImageView.setImageResource(city.getCoatOfArms());
+        holder.coatOfArmsImageView.setImageResource(R.drawable.ekat);
 
     }
 

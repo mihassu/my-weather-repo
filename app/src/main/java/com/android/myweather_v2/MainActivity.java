@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity
     public static final String CITY_NAME = "cityName";
     public static final String CONDITIONS = "Conditions";
     public static final String CURRENT_CITY = "CurrentCity";
+    public static final String ALL_CITIES = "AllCities";
+
 
     public SharedPreferences condOptions;
     private boolean showWind = false;
@@ -110,8 +112,12 @@ public class MainActivity extends AppCompatActivity
         selectCityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String[] cities = noteDataReader.getAllCities();
+
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, CitiesActivity.class);
+                intent.putExtra(ALL_CITIES, cities);
                 startActivityForResult(intent, REQUEST_ACCES_TYPE);
 
             }
@@ -308,6 +314,9 @@ public class MainActivity extends AppCompatActivity
                 addElementToDB();
                 return true;
 
+            case R.id.action_clear_db:
+                noteDataSourse.deleteAll();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -475,15 +484,17 @@ public class MainActivity extends AppCompatActivity
                 // editText = null
 
                 noteDataSourse.addNote(newCity.getText().toString(), newTemp.getText().toString());
+                dataUpdated();
             }
         });
 
         builder.show();
     }
 
-//    private void dataUpdated() {
-//        noteDataReader.refresh();
-//        adapter.notifyDataSetChanged();
-//    }
+    private void dataUpdated() {
+        noteDataReader.refresh(); //без этого БД обновляется только при перезапуске приложения
+        CitiesActivity.adapter.notifyDataSetChanged();
+
+    }
 }
 

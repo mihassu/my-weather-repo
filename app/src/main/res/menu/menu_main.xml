@@ -19,11 +19,20 @@
         <!--&gt;</item>-->
 
     <item android:id="@+id/action_add_to_db"
+        android:orderInCategory="60"
+        app:showAsAction="always"
+        android:title="@string/clearTable"
+        android:icon="@drawable/ic_add_circle_outline_black_24dp"
+        />
+
+    <item android:id="@+id/action_clear_db"
         android:orderInCategory="70"
         app:showAsAction="always"
         android:title="@string/add_city"
-        android:icon="@drawable/ic_add_circle_outline_black_24dp"
+        android:icon="@drawable/ic_clear_black_24dp"
         />
+
+
 
     <item android:id="@+id/action_settings"
         android:orderInCategory="80"

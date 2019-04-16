@@ -3,8 +3,13 @@ package com.android.myweather_v2.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.android.myweather_v2.WeatherInfo;
+import com.android.myweather_v2.WeatherInfoService;
+
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NoteDataReader implements Closeable {
 
@@ -26,6 +31,22 @@ public class NoteDataReader implements Closeable {
     public void open() {
         query();
         cursor.moveToFirst(); //Методы Cursor возвращают true или false
+
+        WeatherInfoService.setCityFromBase(new CallBackWeather() {
+            @Override
+            public String callback(Object... args) {
+//                Cursor c = database.query(DataBaseHelper.TABLE_WEATHER,
+//                        new String[] {DataBaseHelper.COLUMN_CITY, DataBaseHelper.COLUMN_TEMPERATURE},
+//                        DataBaseHelper.COLUMN_CITY + "= ?",
+//                        new String[] {args[0].toString()},null, null, null);
+//                c.moveToFirst();
+//                String city = c.getString(1);
+//                c.close();
+                cursor.moveToPosition((Integer)args[0]);
+                String city = cursor.getString(2);
+                return city;
+            }
+        });
     }
 
     // Перечитать таблицу
@@ -50,11 +71,6 @@ public class NoteDataReader implements Closeable {
         return cursorToNote();
     }
 
-    // получить количество строк в таблице
-    public int getCount() {
-        return cursor.getCount();
-    }
-
     // преобразователь курсора в объект. Возвращается объект Note с данными полученными из Cursor
     private Note cursorToNote() {
         Note note = new Note();
@@ -64,9 +80,30 @@ public class NoteDataReader implements Closeable {
         return note;
     }
 
+    // получить количество строк в таблице
+    public int getCount() {
+        return cursor.getCount();
+    }
+
+    public String[] getAllCities() {
+        List<String> list = new ArrayList<>();
+
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            list.add(cursor.getString(1));
+        }
+
+        String[] tempArr = new String[list.size()];
+
+        for (int i = 0; i < list.size(); i++) {
+            tempArr[i] = list.get(i);
+        }
+        return tempArr;
+    }
 
     @Override
     public void close() throws IOException {
         cursor.close();
     }
+
 }

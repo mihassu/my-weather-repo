@@ -27,6 +27,8 @@
     <string name="selectcity">Выбрать</string>
     <string name="selectcityStr">Выберите город</string>
     <string name="add_city">Добавить город</string>
+    <string name="clearTable">Очистить таблицу</string>
+
     <string name="cancel">Отмена</string>
     <string name="ok">OK</string>
 
