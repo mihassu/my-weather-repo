@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK){
                 try {
                     cityName = data.getStringExtra(CITY_NAME);
-                    currentPosition = data.getIntExtra(CURRENT_CITY_POS, 0);
+//                    currentPosition = data.getIntExtra(CURRENT_CITY_POS, 0);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -342,8 +342,14 @@ public class MainActivity extends AppCompatActivity
 
         switch (id){
             case R.id.context_select_city:
+//                Intent intent = new Intent();
+//                intent.setClass(MainActivity.this, CitiesActivity.class);
+//                startActivityForResult(intent, REQUEST_ACCES_TYPE);
+
+                String[] cities = noteDataReader.getAllCities();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, CitiesActivity.class);
+                intent.putExtra(ALL_CITIES, cities);
                 startActivityForResult(intent, REQUEST_ACCES_TYPE);
 
             default: return super.onContextItemSelected(item);

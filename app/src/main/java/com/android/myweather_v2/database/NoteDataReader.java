@@ -2,6 +2,7 @@ package com.android.myweather_v2.database;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.android.myweather_v2.WeatherInfo;
 import com.android.myweather_v2.WeatherInfoService;
@@ -42,9 +43,22 @@ public class NoteDataReader implements Closeable {
 //                c.moveToFirst();
 //                String city = c.getString(1);
 //                c.close();
-                cursor.moveToPosition((Integer)args[0]);
-                String city = cursor.getString(2);
-                return city;
+                String tempValue = "000";
+                cursor.moveToFirst();
+                while (true) {
+
+                    if (cursor.isAfterLast()) {
+                        break;
+                    }
+                    Log.e("args: ", args[0].toString());
+                    Log.e("ГОРОД: ", cursor.getString(1));
+
+                    if(cursor.getString(1).equals(args[0].toString())) {
+                        tempValue = cursor.getString(2);
+                    }
+                    cursor.moveToNext();
+                }
+                return tempValue;
             }
         });
     }
@@ -88,9 +102,15 @@ public class NoteDataReader implements Closeable {
     public String[] getAllCities() {
         List<String> list = new ArrayList<>();
 
-        cursor.moveToFirst();
-        while (cursor.moveToNext()) {
-            list.add(cursor.getString(1));
+        if (cursor.moveToFirst()) {
+            while (true) {
+                if (cursor.isAfterLast()) {
+                    break;
+                }
+                list.add(cursor.getString(1));
+                cursor.moveToNext();
+
+            }
         }
 
         String[] tempArr = new String[list.size()];

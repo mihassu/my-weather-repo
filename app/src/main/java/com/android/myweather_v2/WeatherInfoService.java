@@ -42,7 +42,7 @@ public class WeatherInfoService extends IntentService {
 
         //Получаем значение из activity которая запустила сервис
         String city = intent.getStringExtra(CITY_NAME);
-        int index = intent.getIntExtra(CURRENT_CITY_POS, 0);
+
         Log.e(TAG, "onHandleIntent " + city);
 
         WeatherInfo weatherInCity = new WeatherInformerByService();
@@ -53,7 +53,7 @@ public class WeatherInfoService extends IntentService {
         responseIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
 //        responseIntent.putExtra(TEMPERATURE_VALUE, weatherInCity.getTemperatureByCity(city));
-        responseIntent.putExtra(TEMPERATURE_VALUE, cityFromBase.callback(index));
+        responseIntent.putExtra(TEMPERATURE_VALUE, cityFromBase.callback(city));
 
         responseIntent.putExtra(WIND_VALUE, weatherInCity.getWindByCity(city));
         responseIntent.putExtra(PRESSURE_VALUE, weatherInCity.getPressureByCity(city));

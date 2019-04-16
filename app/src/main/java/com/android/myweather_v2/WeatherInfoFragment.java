@@ -38,15 +38,15 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
         //Передача полученных значений во фрагмент
         Bundle args = new Bundle();
         args.putString(CITY_NAME, cityName);
-        args.putInt(CURRENT_CITY_POS, index);
+//        args.putInt(CURRENT_CITY_POS, index);
         args.putBooleanArray(CONDITIONS, conditions);
         f.setArguments(args);
         return f;
     }
 
-    public int getIndex() {
-        return getArguments().getInt(CURRENT_CITY_POS, 0);
-    }
+//    public int getIndex() {
+//        return getArguments().getInt(CURRENT_CITY_POS, 0);
+//    }
 
     public String getCityName() {
         return getArguments().getString(CITY_NAME);
@@ -71,8 +71,8 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
         //Запустить IntentService (Сервис который узнает погоду)
         Intent intentForService = new Intent(getActivity(), WeatherInfoService.class);
         intentForService.putExtra(CITY_NAME, getCityName());
-        intentForService.putExtra(CONDITIONS, getConditions());
-        intentForService.putExtra(CURRENT_CITY_POS, getIndex());
+//        intentForService.putExtra(CONDITIONS, getConditions());
+//        intentForService.putExtra(CURRENT_CITY_POS, getIndex());
 
         getActivity().startService(intentForService);
 
