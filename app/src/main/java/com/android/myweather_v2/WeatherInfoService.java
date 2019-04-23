@@ -21,10 +21,11 @@ public class WeatherInfoService extends IntentService {
     public final String TAG = "<<WeatherService>>";
     public static final String ACTION_MYINTENTSERVICE = "my.RESPONSE";
 
-    private static CallBackWeather cityFromBase;
+    private static CallBackWeather valuesFromBase;
 
-    public static void setCityFromBase(CallBackWeather cityFromBase) {
-        WeatherInfoService.cityFromBase = cityFromBase;
+
+    public static void setValuesFromBase(CallBackWeather valuesFromBase) {
+        WeatherInfoService.valuesFromBase = valuesFromBase;
     }
 
     public WeatherInfoService() {
@@ -43,20 +44,26 @@ public class WeatherInfoService extends IntentService {
         //Получаем значение из activity которая запустила сервис
         String city = intent.getStringExtra(CITY_NAME);
 
+        //получаем погоду из базы по городу
+        String[] weathValues = valuesFromBase.callback(city);
+
         Log.e(TAG, "onHandleIntent " + city);
 
-        WeatherInfo weatherInCity = new WeatherInformerByService();
+//        WeatherInfo weatherInCity = new WeatherInformerByService();
+
 
         //Отправляем результат в activity
         Intent responseIntent = new Intent();
         responseIntent.setAction(ACTION_MYINTENTSERVICE);
         responseIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
-//        responseIntent.putExtra(TEMPERATURE_VALUE, weatherInCity.getTemperatureByCity(city));
-        responseIntent.putExtra(TEMPERATURE_VALUE, cityFromBase.callback(city));
+        responseIntent.putExtra(TEMPERATURE_VALUE, weathValues[0]);
+        responseIntent.putExtra(WIND_VALUE, weathValues[1]);
+        responseIntent.putExtra(PRESSURE_VALUE, weathValues[2]);
 
-        responseIntent.putExtra(WIND_VALUE, weatherInCity.getWindByCity(city));
-        responseIntent.putExtra(PRESSURE_VALUE, weatherInCity.getPressureByCity(city));
+//        responseIntent.putExtra(TEMPERATURE_VALUE, weatherInCity.getTemperatureByCity(city));
+//        responseIntent.putExtra(WIND_VALUE, weatherInCity.getWindByCity(city));
+//        responseIntent.putExtra(PRESSURE_VALUE, weatherInCity.getPressureByCity(city));
 
         sendBroadcast(responseIntent);
     }

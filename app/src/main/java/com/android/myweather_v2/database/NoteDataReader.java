@@ -21,7 +21,10 @@ public class NoteDataReader implements Closeable {
     private final String[] notesAllColumn = {
             DataBaseHelper.COLUMN_ID,
             DataBaseHelper.COLUMN_CITY,
-            DataBaseHelper.COLUMN_TEMPERATURE
+            DataBaseHelper.COLUMN_TEMPERATURE,
+            DataBaseHelper.COLUMN_WIND,
+            DataBaseHelper.COLUMN_PRESSURE
+
     };
 
     public NoteDataReader(SQLiteDatabase database) {
@@ -33,34 +36,28 @@ public class NoteDataReader implements Closeable {
         query();
         cursor.moveToFirst(); //Методы Cursor возвращают true или false
 
-        WeatherInfoService.setCityFromBase(new CallBackWeather() {
+        WeatherInfoService.setValuesFromBase(new CallBackWeather() {
             @Override
-            public String callback(Object... args) {
-//                Cursor c = database.query(DataBaseHelper.TABLE_WEATHER,
-//                        new String[] {DataBaseHelper.COLUMN_CITY, DataBaseHelper.COLUMN_TEMPERATURE},
-//                        DataBaseHelper.COLUMN_CITY + "= ?",
-//                        new String[] {args[0].toString()},null, null, null);
-//                c.moveToFirst();
-//                String city = c.getString(1);
-//                c.close();
-                String tempValue = "000";
+            public String[] callback(Object... args) {
+                String[] weatherValues = new String[3];
                 cursor.moveToFirst();
                 while (true) {
 
                     if (cursor.isAfterLast()) {
                         break;
                     }
-                    Log.e("args: ", args[0].toString());
-                    Log.e("ГОРОД: ", cursor.getString(1));
-
                     if(cursor.getString(1).equals(args[0].toString())) {
-                        tempValue = cursor.getString(2);
+                        weatherValues[0] = cursor.getString(2);
+                        weatherValues[1] = cursor.getString(3);
+                        weatherValues[2] = cursor.getString(4);
                     }
                     cursor.moveToNext();
                 }
-                return tempValue;
+                return weatherValues;
             }
         });
+
+
     }
 
     // Перечитать таблицу
@@ -77,6 +74,12 @@ public class NoteDataReader implements Closeable {
                 notesAllColumn, null, null,
                 null, null, null);
         //в cursor попадают данные после запроса. Чтобы их получить надо вызывать у него методы
+
+        Log.e(DataBaseHelper.TABLE_WEATHER, "version: " + database.getVersion());
+
+        for (int i = 0; i < cursor.getColumnNames().length; i++) {
+            Log.e(DataBaseHelper.TABLE_WEATHER, cursor.getColumnNames()[i]);
+        }
     }
 
     // прочитать данные по определенной позиции
@@ -91,6 +94,8 @@ public class NoteDataReader implements Closeable {
         note.setId(cursor.getLong(0));
         note.setCityName(cursor.getString(1));
         note.setTemperatureValue(cursor.getString(2));
+        note.setWindValue(cursor.getString(3));
+        note.setPressureValue(cursor.getString(4));
         return note;
     }
 

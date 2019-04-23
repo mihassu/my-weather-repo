@@ -84,8 +84,6 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         getActivity().registerReceiver(myBroadcastReceiver, intentFilter);
 
-        Log.e(TAG, "register BR");
-
         return v;
     }
 

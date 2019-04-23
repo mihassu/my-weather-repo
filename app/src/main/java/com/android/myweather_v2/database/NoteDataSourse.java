@@ -30,17 +30,21 @@ public class NoteDataSourse implements Closeable {
 
     }
 
-    public Note addNote(String city, String temperature){
+    public Note addNote(String city, String temperature, String wind, String pressure){
         ContentValues values = new ContentValues();
         values.put(DataBaseHelper.COLUMN_CITY, city);
         values.put(DataBaseHelper.COLUMN_TEMPERATURE, temperature);
-
+        values.put(DataBaseHelper.COLUMN_WIND, wind);
+        values.put(DataBaseHelper.COLUMN_PRESSURE, pressure);
         //insert() - это обертка INSERT INTO. null - как будут отображаться пустые значения
         long insertId = database.insert(DataBaseHelper.TABLE_WEATHER, null, values);
+
         Note newNote = new Note();
         newNote.setId(insertId);
         newNote.setCityName(city);
         newNote.setTemperatureValue(temperature);
+        newNote.setWindValue(wind);
+        newNote.setPressureValue(pressure);
         return newNote;
     }
 

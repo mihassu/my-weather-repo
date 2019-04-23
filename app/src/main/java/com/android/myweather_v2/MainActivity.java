@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity
                 //Создание неявного Intent(намерения)
                 Uri webSite = Uri.parse("https://yandex.ru/pogoda/saint-petersburg");
                 Intent intent = new Intent(Intent.ACTION_VIEW, webSite);
+//                intent.setData();
+//                intent.setDataAndType();
                 //Создание окна с выбором приложения(если есть несколько приложений, способных обработать данный Intent)
                 Intent chooser = Intent.createChooser(intent, "Выберите");
                 startActivity(chooser);
@@ -486,10 +488,14 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int id) {
                 EditText newCity = alertView.findViewById(R.id.city_name_to_db);
                 EditText newTemp = alertView.findViewById(R.id.temperature_to_db);
+                EditText newWind = alertView.findViewById(R.id.wind_to_db);
+                EditText newPressure = alertView.findViewById(R.id.pressure_to_db);
+
                 // если использовать findViewById без alertView, то всегда будем получать
                 // editText = null
 
-                noteDataSourse.addNote(newCity.getText().toString(), newTemp.getText().toString());
+                noteDataSourse.addNote(newCity.getText().toString(), newTemp.getText().toString(),
+                        newWind.getText().toString(), newPressure.getText().toString());
                 dataUpdated();
             }
         });
