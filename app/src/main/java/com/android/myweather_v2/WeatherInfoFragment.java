@@ -94,16 +94,18 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            tView.setText(intent.getStringExtra(WeatherInfoService.TEMPERATURE_VALUE));
+            tView.setText(String.format("%s %s", intent.getStringExtra(WeatherInfoService.TEMPERATURE_VALUE), R.string.C));
 
             if (getConditions()[0]) {
                 weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.windStr).toString(), 16));
-                weather.addView(createWeatherCard(Gravity.END, intent.getStringExtra(WeatherInfoService.WIND_VALUE), 16));
+                weather.addView(createWeatherCard(Gravity.END,
+                        String.format("%s %s", intent.getStringExtra(WeatherInfoService.WIND_VALUE), R.string.Velocity), 16));
             }
 
             if (getConditions()[1]) {
                 weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.pressureStr).toString(), 16));
-                weather.addView(createWeatherCard(Gravity.END, intent.getStringExtra(WeatherInfoService.PRESSURE_VALUE), 16));
+                weather.addView(createWeatherCard(Gravity.END,
+                        String.format("%s %s", intent.getStringExtra(WeatherInfoService.PRESSURE_VALUE), R.string.Pressure), 16));
             }
         }
     }

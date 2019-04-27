@@ -45,4 +45,12 @@
     <string name="about_creator">О разработчике</string>
     <string name="feedback">Обратная связь</string>
 
+    <string name="C">ºC</string>
+    <string name="Velocity">м/с</string>
+    <string name="Pressure">мм рт.ст</string>
+
+
+
+
+
 </resources>

@@ -505,8 +505,10 @@ public class MainActivity extends AppCompatActivity
 
     private void dataUpdated() {
         noteDataReader.refresh(); //без этого БД обновляется только при перезапуске приложения
-        CitiesActivity.adapter.notifyDataSetChanged();
+//        CitiesActivity.adapter.notifyDataSetChanged();
 
     }
+
+
 }
 
