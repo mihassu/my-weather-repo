@@ -32,21 +32,17 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
 
 
     //Фабричный метод - метод который создает объект класса
-    public static WeatherInfoFragment create(String cityName, int index, boolean[] conditions) {
+    public static WeatherInfoFragment create(String cityName, boolean[] conditions) {
         WeatherInfoFragment f = new WeatherInfoFragment();
 
         //Передача полученных значений во фрагмент
         Bundle args = new Bundle();
         args.putString(CITY_NAME, cityName);
-//        args.putInt(CURRENT_CITY_POS, index);
         args.putBooleanArray(CONDITIONS, conditions);
         f.setArguments(args);
         return f;
     }
 
-//    public int getIndex() {
-//        return getArguments().getInt(CURRENT_CITY_POS, 0);
-//    }
 
     public String getCityName() {
         return getArguments().getString(CITY_NAME);
@@ -72,7 +68,6 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
         Intent intentForService = new Intent(getActivity(), WeatherInfoService.class);
         intentForService.putExtra(CITY_NAME, getCityName());
 //        intentForService.putExtra(CONDITIONS, getConditions());
-//        intentForService.putExtra(CURRENT_CITY_POS, getIndex());
 
         getActivity().startService(intentForService);
 
@@ -94,18 +89,18 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            tView.setText(String.format("%s %s", intent.getStringExtra(WeatherInfoService.TEMPERATURE_VALUE), R.string.C));
+            tView.setText(String.format("%s %s", intent.getStringExtra(WeatherInfoService.TEMPERATURE_VALUE), "ºC"));
 
             if (getConditions()[0]) {
                 weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.windStr).toString(), 16));
                 weather.addView(createWeatherCard(Gravity.END,
-                        String.format("%s %s", intent.getStringExtra(WeatherInfoService.WIND_VALUE), R.string.Velocity), 16));
+                        String.format("%s %s", intent.getStringExtra(WeatherInfoService.WIND_VALUE), "м/с"), 16));
             }
 
             if (getConditions()[1]) {
                 weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.pressureStr).toString(), 16));
                 weather.addView(createWeatherCard(Gravity.END,
-                        String.format("%s %s", intent.getStringExtra(WeatherInfoService.PRESSURE_VALUE), R.string.Pressure), 16));
+                        String.format("%s %s", intent.getStringExtra(WeatherInfoService.PRESSURE_VALUE), "мм.рт.ст"), 16));
             }
         }
     }

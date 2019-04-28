@@ -57,6 +57,13 @@ public class NoteDataReader implements Closeable {
             }
         });
 
+        WeatherInfoService.setGetAllCitiesInBase(new CallBackWeather() {
+            @Override
+            public String[] callback(Object... args) {
+                return getAllCities();
+            }
+        });
+
 
     }
 

@@ -15,14 +15,21 @@
         android:orientation="horizontal">
 
 
-        <TextView
-            android:id="@+id/tViewSelectedCity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="@string/selectcityStr" />
+        <!--<TextView-->
+            <!--android:id="@+id/tViewSelectedCity"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:hint="@string/selectcityStr" />-->
 
+        <!--Ввод города с клавы-->
+        <EditText android:id="@+id/tViewEnterCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!--Показать города в базе-->
         <Button
             android:id="@+id/buttonSelectCity"
             android:layout_width="match_parent"
@@ -31,6 +38,15 @@
             android:text="@string/selectcity" />
 
     </LinearLayout>
+
+
+
+    <!--Найти погоду в инете-->
+    <Button
+        android:id="@+id/buttonGetWeather"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/showWeather" />
 
     <!--Картинка из интернета-->
     <ImageView android:id="@+id/picture_from_int"

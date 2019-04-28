@@ -54,11 +54,13 @@ public class MainActivity extends AppCompatActivity
 
     private String cityName;
     private int currentPosition = 0;
-    private TextView tViewSelectedCity;
+//    private TextView tViewSelectedCity;
     private TextView tViewSensorLight;
     private TextView allSensors;
     private Button selectCityButton;
     private ImageView pictireFromInt;
+    private EditText tViewEnterCity;
+    private Button buttonGetWeather;
 
 
     public static final int REQUEST_ACCES_TYPE = 1;
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //Контекстное меню
-        registerForContextMenu(tViewSelectedCity);
+        registerForContextMenu(tViewEnterCity);
 
 
         //Получить файл опций ключу OPTIONS_CONDITIONS. Если файла нет, то он будет создан
@@ -123,8 +125,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //Кнопка показать погоду
+        buttonGetWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showWeatherInfo();
+            }
+        });
+
         //Показать погоду
-        showWeatherInfo();
+//        showWeatherInfo();
 
 
         //Плавающая кнопка
@@ -183,14 +193,19 @@ public class MainActivity extends AppCompatActivity
                 load("https://www.bystricak.sk/assets/images/bb/posts/img-1/1528100698-pocasie-sa-vyraznejsie-menit-nebude-vysoke-teploty-a-burky-budu-na-dennom-poriadku.JPG")
                 .into(pictireFromInt);
 
+
+
     }
 
     private void initGui() {
         selectCityButton = findViewById(R.id.buttonSelectCity);
-        tViewSelectedCity = findViewById(R.id.tViewSelectedCity);
+//        tViewSelectedCity = findViewById(R.id.tViewSelectedCity);
         tViewSensorLight = findViewById(R.id.sensor_light);
         allSensors = findViewById(R.id.all_sensors);
         pictireFromInt = findViewById(R.id.picture_from_int);
+        tViewEnterCity = findViewById(R.id.tViewEnterCity);
+        tViewEnterCity.setText("Saint Petersburg,ru");
+        buttonGetWeather = findViewById(R.id.buttonGetWeather);
     }
 
     @Override
@@ -212,7 +227,7 @@ public class MainActivity extends AppCompatActivity
         //Читаем установленное значение размера шрифта
         float fontSize = Float.parseFloat(prefs.getString(getString(R.string.pref_size), "20"));
         //Применяем настройки
-        tViewSelectedCity.setTextSize(fontSize);
+        tViewEnterCity.setTextSize(fontSize);
 
         //Получить значения установленные в опциях
         if (condOptions.contains(SHOWWIND_OPTION) && condOptions.contains(SHOWPRESSURE_OPTION)){
@@ -224,9 +239,9 @@ public class MainActivity extends AppCompatActivity
         sensorManager.registerListener(listenerTemp, sensorLight, SensorManager.SENSOR_DELAY_NORMAL);
 
         if(cityName != null){
-            tViewSelectedCity.setText(cityName);
+            tViewEnterCity.setText(cityName);
         }
-        showWeatherInfo();
+//        showWeatherInfo();
 
     }
 
@@ -245,13 +260,14 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK){
                 try {
                     cityName = data.getStringExtra(CITY_NAME);
-//                    currentPosition = data.getIntExtra(CURRENT_CITY_POS, 0);
+
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
 
                 if(cityName != null){
-                    tViewSelectedCity.setText(cityName);
+                    tViewEnterCity.setText(cityName);
+
                 }
             }
         }else {
@@ -393,8 +409,8 @@ public class MainActivity extends AppCompatActivity
 
         //Сохраняем текущий город перед закрытием
         SharedPreferences.Editor editor = condOptions.edit();
-        if(tViewSelectedCity != null){
-            editor.putString(CURRENT_CITY, tViewSelectedCity.getText().toString());
+        if(tViewEnterCity != null){
+            editor.putString(CURRENT_CITY, tViewEnterCity.getText().toString());
             editor.apply();
         }
     }
@@ -407,11 +423,13 @@ public class MainActivity extends AppCompatActivity
 
     public void showWeatherInfo() {
 
-        if(cityName == null) {
-            return;
-        }
+//        if(cityName == null) {
+//            return;
+//        }
 
-        WeatherInfoFragment det = WeatherInfoFragment.create((tViewSelectedCity.getText()).toString(), currentPosition, getConditionsFromCheckBoxes());
+//        WeatherInfoFragment det = WeatherInfoFragment.create((tViewSelectedCity.getText()).toString(), getConditionsFromCheckBoxes());
+        WeatherInfoFragment det = WeatherInfoFragment.create((tViewEnterCity.getText()).toString(), getConditionsFromCheckBoxes());
+
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         if(getFragmentManager().findFragmentById(R.id.weather_container) == null) {
             ft.add(R.id.weather_container, det);
